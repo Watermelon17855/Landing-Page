@@ -65,22 +65,37 @@ export default function App() {
         </a>
       </div>
 
-      {/* 📌 Header Cố Định */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-amber-100/90 backdrop-blur-md border-b border-amber-200/60 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <img src="/logo_banh_ba_hang.png" alt="Bánh Bà Hằng" className="w-12 h-12 rounded-full border-2 border-amber-500 shadow-sm" />
-            <div>
-              <h1 className="text-xl font-black text-amber-950 leading-none">Bánh Bà Hằng</h1>
-              <p className="text-[10px] text-amber-800 font-bold mt-0.5">Ăn không ngon không lấy tiền</p>
+      {/* 📌 Header Responsive Cố Định Trên Đỉnh Màn Hình */}
+      <header className="fixed top-0 left-0 right-0 z-[9999] w-full bg-amber-100/95 backdrop-blur-md border-b border-amber-200/60 shadow-sm box-border">
+        <div className="max-w-6xl mx-auto px-3 py-2 flex items-center justify-between gap-2 overflow-hidden">
+
+          {/* Khối Logo & Tên cửa hàng */}
+          <div className="flex items-center gap-2 min-w-0">
+            <img
+              src="/logo_banh_ba_hang.png"
+              alt="Bánh Bà Hằng"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border-2 border-amber-500 shadow-sm shrink-0"
+            />
+            <div className="min-w-0 flex-1">
+              <h1 className="text-sm sm:text-lg font-black text-amber-950 leading-tight truncate">
+                Bánh Bà Hằng
+              </h1>
+              <p className="text-[8px] sm:text-[10px] text-amber-800 font-bold leading-none truncate mt-0.5">
+                Ăn không ngon không lấy tiền
+              </p>
             </div>
           </div>
+
+          {/* Nút Gọi Đặt Bánh */}
           <a
             href={`tel:${HOTLINE}`}
-            className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition text-sm flex items-center gap-1.5 shadow-md active:scale-95"
+            className="bg-amber-600 hover:bg-amber-700 text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-semibold transition text-xs sm:text-sm flex items-center gap-1 shadow-md shrink-0 active:scale-95"
           >
-            <Phone className="w-4 h-4" /> Gọi Đặt Bánh
+            <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Gọi Đặt Bánh</span>
+            <span className="sm:hidden text-[11px]">Gọi ngay</span>
           </a>
+
         </div>
       </header>
 
