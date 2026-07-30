@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import InteractiveBanner from './InteractiveBanner';
 import Typewriter from 'typewriter-effect';
 import { Phone, MapPin, Heart, MessageCircle, ShoppingBag, Award, Star, CheckCircle } from 'lucide-react';
 
-const HOTLINE = "0817897378"; // Thay bằng số điện thoại Zalo thật của bạn
+const HOTLINE = "0817897378"; // Số điện thoại Zalo của bạn
 const ZALO_LINK = `https://zalo.me/${HOTLINE}`;
 
 const PRODUCTS = [
@@ -27,16 +28,24 @@ const PRODUCTS = [
 export default function App() {
   useEffect(() => {
     AOS.init({
-      duration: 900,
-      once: true,
-      easing: 'ease-out-cubic',
+      duration: 800,
+      once: false, // Để hiệu ứng chạy lại khi cuộn
+      mirror: true,
+      offset: 50,  // Kích hoạt sớm hơn 50px
     });
+
+    // Refresh lại AOS sau khi GSAP tính toán xong layout
+    const timer = setTimeout(() => {
+      AOS.refresh();
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="min-h-screen bg-amber-50/50 text-stone-800 font-sans relative overflow-x-hidden">
+    <div className="min-h-screen bg-amber-50/50 text-stone-800 font-sans relative">
 
-      {/* 🔴 FLOATING BUTTONS (Nút liên hệ cố định góc màn hình - Cực sống động) */}
+      {/* 🔴 FLOATING BUTTONS (Nút liên hệ cố định góc màn hình) */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
         <a
           href={ZALO_LINK}
@@ -56,11 +65,10 @@ export default function App() {
         </a>
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-amber-100/80 backdrop-blur-md border-b border-amber-200/60">
+      {/* 📌 Header Cố Định */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-amber-100/90 backdrop-blur-md border-b border-amber-200/60 shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            {/* Hiển thị Logo */}
             <img src="/logo_banh_ba_hang.png" alt="Bánh Bà Hằng" className="w-12 h-12 rounded-full border-2 border-amber-500 shadow-sm" />
             <div>
               <h1 className="text-xl font-black text-amber-950 leading-none">Bánh Bà Hằng</h1>
@@ -69,12 +77,17 @@ export default function App() {
           </div>
           <a
             href={`tel:${HOTLINE}`}
-            className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition text-sm flex items-center gap-1.5 shadow-md"
+            className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-full font-semibold transition text-sm flex items-center gap-1.5 shadow-md active:scale-95"
           >
             <Phone className="w-4 h-4" /> Gọi Đặt Bánh
           </a>
         </div>
       </header>
+
+      {/* 🎯 BANNER 3D TƯƠNG TÁC */}
+      <div className="pt-16">
+        <InteractiveBanner />
+      </div>
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-4 py-12 md:py-20 grid md:grid-cols-2 gap-10 items-center">
@@ -83,7 +96,6 @@ export default function App() {
             <Award className="w-3.5 h-3.5 text-amber-700" /> Thủ công • 100% Nguyên liệu sạch
           </span>
 
-          {/* TIÊU ĐỀ CÓ HIỆU ỨNG GÕ CHỮ (TYPEWRITER) */}
           <h1 className="text-4xl md:text-5xl font-extrabold text-amber-950 leading-tight mb-4 min-h-[110px]">
             Hương Vị Bánh Thửng & Bánh Két <br />
             <span className="text-amber-600 inline-block">
@@ -119,7 +131,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* HERO IMAGE VỚI HIỆU ỨNG NỔI & THÊM FLOATING BADGE */}
         <div className="relative" data-aos="fade-left">
           <div className="w-full h-80 md:h-[420px] bg-amber-200 rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
             <img
@@ -146,7 +157,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Highlights (Các ô tính năng trượt nổi) */}
+      {/* Highlights */}
       <section className="bg-amber-100/50 py-14 border-y border-amber-200/60">
         <div className="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-6 text-center">
           <div className="p-6 bg-white rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 border border-amber-100" data-aos="fade-up" data-aos-delay="100">
@@ -219,7 +230,6 @@ export default function App() {
       {/* Contact Section */}
       <section id="contact" className="max-w-4xl mx-auto px-4 py-12" data-aos="zoom-in">
         <div className="bg-gradient-to-br from-amber-600 via-amber-700 to-amber-800 text-white rounded-3xl p-8 md:p-14 shadow-2xl text-center relative overflow-hidden">
-          {/* Bán kính trang trí phía sau */}
           <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
 
